@@ -90,7 +90,6 @@ const getAllBooksHandler = (request, h) => {
   } else if (finished === "0") {
     booksFiltered = books.filter(({ finished }) => finished == false);
   } else if (name !== undefined) {
-    console.log("masukk");
     booksFiltered = books.filter(function (book) {
       return book.name.toLowerCase().includes(name.toLowerCase());
     });
@@ -101,7 +100,11 @@ const getAllBooksHandler = (request, h) => {
   return {
     status: "success",
     data: {
-      books: booksFiltered,
+      books: booksFiltered.map(({ id, name, publisher }) => ({
+        id,
+        name,
+        publisher,
+      })),
     },
   };
 };
